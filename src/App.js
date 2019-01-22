@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
-import NewComment from './NewComment';
-import Comments from './Comments';
-import { database } from './firebase';
+import NewComment from './NewComment'
+import Comments from './Comments'
+import { database } from './firebase'
 
 class App extends Component {
   state = {
@@ -40,8 +40,8 @@ class App extends Component {
           <p>Loading...</p>
         }
       </div>
-    );
+    )
   }
 }
 
-export default App;
+export default App

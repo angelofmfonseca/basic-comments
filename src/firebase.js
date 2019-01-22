@@ -1,5 +1,5 @@
-import firebase from 'firebase/app';
-import 'firebase/database';
+import firebase from 'firebase/app'
+import 'firebase/database'
 
   const config = {
     apiKey: "AIzaSyCYrwbFl0l4kmzZz6lsHuRjSrb7cLCInac",
@@ -8,7 +8,7 @@ import 'firebase/database';
     projectId: "comments-reactdev",
     storageBucket: "comments-reactdev.appspot.com",
     messagingSenderId: "128328740317"
-  };
-  firebase.initializeApp(config);
+  }
+  firebase.initializeApp(config)
 
-export const database = firebase.database();
+export const database = firebase.database()
