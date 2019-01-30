@@ -1,5 +1,6 @@
 import React from 'react';
 import { shallow } from 'enzyme';
+import { EventEmitter } from 'events';
 
 import App from './App';
 import Comments from './Comments';
@@ -45,5 +46,36 @@ describe('<App />', () => {
         'comment': 'new comment'
       }
     })
+  });
+
+  it('renders comments from firebase without crashing', () => {
+    const database={
+      ref:jest.fn()
+    }
+    const eventEmitter = new EventEmitter()
+    database.ref.mockReturnValue(eventEmitter)
+    const wrapper = shallow(<App database={ database }/>)
+
+    expect(wrapper.find(Comments).length).toBe(1)
+    expect(wrapper.find(NewComment).length).toBe(1)
+    expect(wrapper.find('p').length).toBe(1)
+
+    const comments = {
+      a: { comment: 'comment-1' },
+      b: { comment: 'comment-2' }
+    }
+    const val = jest.fn()
+    val.mockReturnValue(comments)
+    eventEmitter.emit('value', {
+      val
+    })
+
+    wrapper.update()
+
+    expect(wrapper.state().isLoading).toBeFalsy()
+    expect(wrapper.state().comments).toBe(comments)
+    expect(wrapper.find(Comments).get(0).props.comments).toBe(comments)
+    expect(wrapper.find(NewComment).get(0).props.sendComment).toBe(wrapper.instance().sendComment)
+    expect(wrapper.find('p').length).toBe(0)
   });
 })
